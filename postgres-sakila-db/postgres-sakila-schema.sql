@@ -49,8 +49,8 @@ SET default_with_oids = false;
 
 CREATE TABLE actor (
     actor_id integer DEFAULT nextval('actor_actor_id_seq'::regclass) NOT NULL,
-    first_name character varying(45) NOT NULL,
-    last_name character varying(45) NOT NULL,
+    first_name text NOT NULL,
+    last_name text NOT NULL,
     last_update timestamp without time zone DEFAULT now() NOT NULL
 );
 
@@ -130,7 +130,7 @@ ALTER TABLE public.category_category_id_seq OWNER TO postgres;
 
 CREATE TABLE category (
     category_id integer DEFAULT nextval('category_category_id_seq'::regclass) NOT NULL,
-    name character varying(25) NOT NULL,
+    name text NOT NULL,
     last_update timestamp without time zone DEFAULT now() NOT NULL
 );
 
@@ -229,12 +229,12 @@ ALTER TABLE public.address_address_id_seq OWNER TO postgres;
 
 CREATE TABLE address (
     address_id integer DEFAULT nextval('address_address_id_seq'::regclass) NOT NULL,
-    address character varying(50) NOT NULL,
-    address2 character varying(50),
-    district character varying(20) NOT NULL,
+    address text NOT NULL,
+    address2 text,
+    district text NOT NULL,
     city_id smallint NOT NULL,
-    postal_code character varying(10),
-    phone character varying(20) NOT NULL,
+    postal_code text,
+    phone text NOT NULL,
     last_update timestamp without time zone DEFAULT now() NOT NULL
 );
 
@@ -260,7 +260,7 @@ ALTER TABLE public.city_city_id_seq OWNER TO postgres;
 
 CREATE TABLE city (
     city_id integer DEFAULT nextval('city_city_id_seq'::regclass) NOT NULL,
-    city character varying(50) NOT NULL,
+    city text NOT NULL,
     country_id smallint NOT NULL,
     last_update timestamp without time zone DEFAULT now() NOT NULL
 );
@@ -287,7 +287,7 @@ ALTER TABLE public.country_country_id_seq OWNER TO postgres;
 
 CREATE TABLE country (
     country_id integer DEFAULT nextval('country_country_id_seq'::regclass) NOT NULL,
-    country character varying(50) NOT NULL,
+    country text NOT NULL,
     last_update timestamp without time zone DEFAULT now() NOT NULL
 );
 
@@ -314,9 +314,9 @@ ALTER TABLE public.customer_customer_id_seq OWNER TO postgres;
 CREATE TABLE customer (
     customer_id integer DEFAULT nextval('customer_customer_id_seq'::regclass) NOT NULL,
     store_id smallint NOT NULL,
-    first_name character varying(45) NOT NULL,
-    last_name character varying(45) NOT NULL,
-    email character varying(50),
+    first_name text NOT NULL,
+    last_name text NOT NULL,
+    email text,
     address_id smallint NOT NULL,
     activebool boolean DEFAULT true NOT NULL,
     create_date date DEFAULT ('now'::text)::date NOT NULL,
@@ -564,14 +564,14 @@ ALTER TABLE public.staff_staff_id_seq OWNER TO postgres;
 
 CREATE TABLE staff (
     staff_id integer DEFAULT nextval('staff_staff_id_seq'::regclass) NOT NULL,
-    first_name character varying(45) NOT NULL,
-    last_name character varying(45) NOT NULL,
+    first_name text NOT NULL,
+    last_name text NOT NULL,
     address_id smallint NOT NULL,
-    email character varying(50),
+    email text,
     store_id smallint NOT NULL,
     active boolean DEFAULT true NOT NULL,
-    username character varying(16) NOT NULL,
-    password character varying(40),
+    username text NOT NULL,
+    password text,
     last_update timestamp without time zone DEFAULT now() NOT NULL,
     picture bytea
 );
