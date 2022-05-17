@@ -17,9 +17,9 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-DROP SCHEMA IF EXISTS sakila;
-CREATE SCHEMA sakila;
-USE sakila;
+DROP SCHEMA IF EXISTS storefront;
+CREATE SCHEMA storefront;
+USE storefront;
 
 --
 -- Table structure for table `actor`
@@ -417,10 +417,10 @@ a.first_name,
 a.last_name,
 GROUP_CONCAT(DISTINCT CONCAT(c.name, ': ',
 		(SELECT GROUP_CONCAT(f.title ORDER BY f.title SEPARATOR ', ')
-                    FROM sakila.film f
-                    INNER JOIN sakila.film_category fc
+                    FROM storefront.film f
+                    INNER JOIN storefront.film_category fc
                       ON f.film_id = fc.film_id
-                    INNER JOIN sakila.film_actor fa
+                    INNER JOIN storefront.film_actor fa
                       ON f.film_id = fa.film_id
                     WHERE fc.category_id = c.category_id
                     AND fa.actor_id = a.actor_id
@@ -428,12 +428,12 @@ GROUP_CONCAT(DISTINCT CONCAT(c.name, ': ',
              )
              ORDER BY c.name SEPARATOR '; ')
 AS film_info
-FROM sakila.actor a
-LEFT JOIN sakila.film_actor fa
+FROM storefront.actor a
+LEFT JOIN storefront.film_actor fa
   ON a.actor_id = fa.actor_id
-LEFT JOIN sakila.film_category fc
+LEFT JOIN storefront.film_category fc
   ON fa.film_id = fc.film_id
-LEFT JOIN sakila.category c
+LEFT JOIN storefront.category c
   ON fc.category_id = c.category_id
 GROUP BY a.actor_id, a.first_name, a.last_name;
 
@@ -639,5 +639,3 @@ DELIMITER ;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-
